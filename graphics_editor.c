@@ -31,8 +31,32 @@ void display_canvas(void) {
     }
 }
 
+/* NEW Day 2: Draw a circle */
+void draw_circle(int cx, int cy, int r) {
+    for (int deg = 0; deg < 360; deg++) {
+        double rad = deg * 3.14159265 / 180.0;
+        int row = cx + (int)(r * sin(rad));
+        int col = cy + (int)(r * cos(rad) * 2);
+        plot(row, col, BORDER);
+    }
+}
+
+/* NEW Day 2: Draw a rectangle */
+void draw_rectangle(int r1, int c1, int r2, int c2) {
+    for (int c = c1; c <= c2; c++) {
+        plot(r1, c, BORDER);
+        plot(r2, c, BORDER);
+    }
+    for (int r = r1; r <= r2; r++) {
+        plot(r, c1, BORDER);
+        plot(r, c2, BORDER);
+    }
+}
+
 int main(void) {
     clear_canvas();
+    draw_circle(12, 40, 8);
+    draw_rectangle(5, 10, 15, 30);
     display_canvas();
     return 0;
 }
