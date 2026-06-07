@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
-#define ROWS 25
-#define COLS 80
+#define ROWS 22
+#define COLS 60
 #define EMPTY ' '
 #define BORDER '*'
 #define FILL  '_'
@@ -31,7 +32,6 @@ void display_canvas(void) {
     }
 }
 
-/* NEW Day 2: Draw a circle */
 void draw_circle(int cx, int cy, int r) {
     for (int deg = 0; deg < 360; deg++) {
         double rad = deg * 3.14159265 / 180.0;
@@ -41,7 +41,6 @@ void draw_circle(int cx, int cy, int r) {
     }
 }
 
-/* NEW Day 2: Draw a rectangle */
 void draw_rectangle(int r1, int c1, int r2, int c2) {
     for (int c = c1; c <= c2; c++) {
         plot(r1, c, BORDER);
@@ -53,10 +52,42 @@ void draw_rectangle(int r1, int c1, int r2, int c2) {
     }
 }
 
+void draw_line(int r1, int c1, int r2, int c2) {
+    int dr = abs(r2 - r1);
+    int dc = abs(c2 - c1);
+    int sr = (r1 < r2) ? 1 : -1;
+    int sc = (c1 < c2) ? 1 : -1;
+    int err = dr - dc;
+    while (1) {
+        plot(r1, c1, FILL);
+        if (r1 == r2 && c1 == c2) break;
+        int e2 = 2 * err;
+        if (e2 > -dc) { err -= dc; r1 += sr; }
+        if (e2 <  dr) { err += dr; c1 += sc; }
+    }
+}
+
+void draw_triangle(int r1, int c1, int r2, int c2, int r3, int c3) {
+    draw_line(r1, c1, r2, c2);
+    draw_line(r2, c2, r3, c3);
+    draw_line(r3, c3, r1, c1);
+}
+
 int main(void) {
     clear_canvas();
-    draw_circle(12, 40, 8);
-    draw_rectangle(5, 10, 15, 30);
+
+    /* Rectangle — top left, no overlap */
+    draw_rectangle(1, 1, 8, 15);
+
+    /* Triangle — top middle, no overlap */
+    draw_triangle(1, 20, 8, 17, 8, 28);
+
+    /* Line — diagonal, right side only */
+    draw_line(1, 35, 10, 55);
+
+    /* Circle — bottom middle */
+    draw_circle(17, 30, 4);
+
     display_canvas();
     return 0;
 }
