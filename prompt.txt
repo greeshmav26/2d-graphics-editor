@@ -1,0 +1,108 @@
+=== MINI PROJECT: 2D Graphics Editor ===
+=== AI Tool Used: Claude (claude.ai) ===
+=== Student: Greeshma V ===
+=== Date: June 4-10, 2026 ===
+
+================================================
+PROMPT 1:
+Write a 2D graphics editor using * and _.
+1. Write functions to draw a circle, rectangle, 
+   line, and triangle.
+2. You should be able to add objects, delete 
+   objects, and modify objects.
+3. Use a 2D array of characters to store the picture.
+4. Write a function to display the picture.
+
+RESPONSE 1:
+Claude provided complete C code with:
+- char canvas[ROWS][COLS] as 2D array
+- clear_canvas() to fill with spaces
+- plot() to set one character at position
+- display_canvas() to print the canvas
+- draw_circle() using sin/cos for 360 degrees
+- draw_rectangle() drawing 4 edges
+- draw_line() using Bresenham's algorithm
+- draw_triangle() connecting 3 points with lines
+- add_object(), delete_object(), modify_object()
+- Object struct with type, x1, y1, x2, y2, radius, active
+
+================================================
+PROMPT 2:
+Explain the code line by line like nursery kid
+
+RESPONSE 2:
+Claude explained each function with analogies:
+- canvas = graph paper with 25x80 boxes
+- clear_canvas = erasing every box with eraser
+- plot = placing one sticker at specific box
+- display_canvas = reading paper row by row
+- draw_circle = walking around circular track 
+  dropping * at each step for 360 degrees
+- draw_rectangle = drawing 4 lines forming a box
+- draw_line = Bresenham walks from point A to B
+  choosing smoothest path using error value
+- draw_triangle = connecting 3 dots with lines
+
+================================================
+PROMPT 3:
+Teacher wants shapes fully filled with * 
+and interactive menu to ask user which shape to draw
+
+RESPONSE 3:
+Claude updated:
+- draw_circle: fills interior using equation
+  dr*dr + dc*dc/4 <= r*r for every point inside
+- draw_rectangle: fills ALL cells inside box
+- draw_triangle: uses scan-line algorithm to 
+  fill interior row by row
+- main(): replaced auto-draw with menu:
+  1.Add 2.Delete 3.Modify 4.Display 5.List 0.Exit
+
+================================================
+PROMPT 4:
+Teacher provided this template to follow:
+#define WIDTH 80
+#define HEIGHT 24  
+#define EMPTY '_'
+#define PIXEL '*'
+char picture[HEIGHT][WIDTH]
+Functions: clearPicture(), displayPicture(), 
+setPixel(), drawLine(), drawRectangle(), 
+drawCircle(), drawTriangle()
+Menu: 1.Line 2.Rectangle 3.Circle 4.Triangle 
+5.Display 0.Exit
+
+RESPONSE 4:
+Claude rewrote entire code matching template exactly:
+- Changed canvas[][] to picture[HEIGHT][WIDTH]
+- Changed EMPTY from space to '_' underscore
+- Changed coordinate system from row/col to x,y
+- clearPicture() fills with '_' underscore
+- displayPicture() prints row by row
+- setPixel(x,y) sets picture[y][x] = '*'
+- drawLine() uses Bresenham with x,y coordinates
+- drawRectangle() calls drawLine() 4 times
+- drawCircle() uses cos/sin for outline
+- drawTriangle() calls drawLine() 3 times
+- main() matches teacher's menu exactly
+
+================================================
+PROMPT 5:
+GitHub setup - how to create repo, push daily commits,
+use Personal Access Token
+
+RESPONSE 5:
+Claude explained step by step:
+- git config --global user.name and user.email
+- git clone with actual GitHub URL
+- git add, git commit -m "message", git push
+- Creating Personal Access Token from 
+  GitHub Settings > Developer Settings
+- Daily commit strategy to look natural:
+  Day1: Canvas setup
+  Day2: Circle and Rectangle
+  Day3: Line and Triangle  
+  Day4: Add and Delete objects
+  Day5: Redraw and List objects
+  Day6: Modify object function
+  Day7: Complete menu and final version
